@@ -1,0 +1,40 @@
+<div class="container">
+  <div class="slider" #slider>
+    <div class="slider__container">
+      <div class="slider__wrapper" #wrapper>
+        <div class="slider__items" #sliderItems>
+          <div
+            class="slider__item"
+            #sliderItem
+            *ngFor="let data of config?.data"
+          >
+            <div class="slider__item-container">
+              <div class="slider__item-content">
+                <ng-container [ngSwitch]="config?.type">
+                  <img
+                    *ngSwitchCase="'image'"
+                    src="{{ data }}"
+                    alt="{{ data }}"
+                  />
+                  <div *ngSwitchCase="'text'" class="text">{{ data }}</div>
+                  <div *ngSwitchCase="'cards'">
+                    <app-card [data]="data"></app-card>
+                  </div>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <a href="#" class="slider__control" data-slide="prev" #prev></a>
+    <a href="#" class="slider__control" data-slide="next" #next></a>
+    <ol class="slider__indicators" *ngIf="config?.type !== 'text'">
+      <li
+        *ngFor="let data of config?.data; let i = index"
+        [attr.data-slide-to]="i"
+        #indicatorList
+      ></li>
+    </ol>
+  </div>
+</div>
